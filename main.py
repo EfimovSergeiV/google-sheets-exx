@@ -2,12 +2,12 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 from methods.charts import *
+from conf import sheet_id
 
 scopes = ["https://www.googleapis.com/auth/spreadsheets"]
 creds = Credentials.from_service_account_file("credentials.json", scopes=scopes)
 client = gspread.authorize(creds)
 
-sheet_id = "1cDlMNy4-i4ysctmG-fTUigyT7ReP6Vkv9HloL1w1yuo"
 workbook = client.open_by_key(sheet_id)
 
 
@@ -21,8 +21,9 @@ workbook = client.open_by_key(sheet_id)
 
 # get_cols_rows(workbook, [1,3,4])
 
-test_update_data(workbook)
+# test_update_data(workbook)
 
+test_insert_data(workbook)
 
 
 
