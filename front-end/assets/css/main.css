@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'Play-Regular';
+  src: url('./fonts/Play/Play-Regular.ttf') format('woff2');
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  /* background-color: #202020; */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #f8dc08;
+  border-radius: 6px;
+  box-shadow: inset 1px 1px 10px #f8dc08;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #f8dc08;
+}
+
+::selection {
+  background: oklch(71.5% 0.143 215.221);
+  color: #fff;
+ }
+
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.15s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  /* filter: blur(0.1rem); */
+}
+
+
+.profile-img {
+  clip-path: polygon(
+      99.81% 45.642%,
+      78.679% 90.958%,
+      28.869% 95.315%,
+      0.19% 54.358%,
+      21.321% 9.042%,
+      71.131% 4.685%
+    );
+
+  /* background-size: cover;
+  background-position: center; */
+  /* border: 8px solid; */
+  /* border-image: linear-gradient(135deg, #00ffd0, #ff00dc) 5; */
+}
