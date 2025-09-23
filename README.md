@@ -15,3 +15,8 @@ https://www.youtube.com/watch?v=zCEJurLGFRk
 ###### Doc : gspread : https://docs.gspread.org/en/v6.1.4/index.html
 
 
+```zsh
+# dependence
+
+pip install fastapi
+```
