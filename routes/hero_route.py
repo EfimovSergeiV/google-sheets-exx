@@ -22,10 +22,6 @@ def get_session():
     with Session(engine) as session:
         yield session
 
-SessionDep = Annotated[Session, Depends(get_session)]
-
-
-
 
 
 router = APIRouter()
@@ -51,7 +47,7 @@ def read_heroes(
     offset: int = 0,
     limit: Annotated[int, Query(le=100)] = 100,
 ) -> list[Hero]:
-    heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
+    heroes = session.exec(select(Hero).order_by(Hero.id.asc()).offset(offset).limit(limit)).all()
     return heroes
 
 

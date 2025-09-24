@@ -13,7 +13,7 @@
       
       <div class="">
         <nuxt-link :to="{ name: 'index' }">
-          <p>Index</p>       
+          <p>BETA</p>       
         </nuxt-link>
       </div>
 

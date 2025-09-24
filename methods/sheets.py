@@ -17,8 +17,8 @@ def get_cols_name(workbook):
     return values_list
 
 
-def get_cols_rows(workbook, rows):
-    """ Возвращает названия колонок """
+def get_list_rows(workbook, rows):
+    """ Возвращает несколько строк по номерам """
     values_list = {}
     for row in rows:
         data = workbook.sheet1.row_values(row)
@@ -27,8 +27,8 @@ def get_cols_rows(workbook, rows):
     return values_list
 
 
-def get_cols(workbook):
-    """ Возвращает названия колонок """
+def get_all_rows(workbook):
+    """ Возвращает все строки """
     values_list = workbook.sheet1.get_all_values()
     print(values_list)
     return values_list

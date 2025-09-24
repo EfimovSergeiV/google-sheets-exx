@@ -4,9 +4,9 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-  /* background-color: #202020; */
+  width: 6px;
+  height: 6px;
+  background-color: #202020;
 }
 
 ::-webkit-scrollbar-thumb {

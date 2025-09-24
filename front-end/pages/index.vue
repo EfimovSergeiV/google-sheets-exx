@@ -2,53 +2,11 @@
   const config = useRuntimeConfig()
 
 
-  const skills = await $fetch(`${ config.public.baseURL }bl/skills/`, { method: 'GET' }).catch( () => {
+  const data = await $fetch(`${ config.public.baseURL }heroes/`, { method: 'GET' }).catch( () => {
     return [
           {
-              "id": 1,
-              "name": "GNU/Linux",
-              "skill": true
+              "err": "Нет данных",
           },
-          {
-              "id": 2,
-              "name": "Debian",
-              "skill": true
-          },
-          {
-              "id": 3,
-              "name": "Python",
-              "skill": true
-          },
-          {
-              "id": 4,
-              "name": "Django",
-              "skill": true
-          },
-          {
-              "id": 5,
-              "name": "FastAPI",
-              "skill": true
-          },
-          {
-              "id": 6,
-              "name": "JavaScript",
-              "skill": true
-          },
-          {
-              "id": 7,
-              "name": "VueJS",
-              "skill": true
-          },
-          {
-              "id": 8,
-              "name": "NuxtJS",
-              "skill": true
-          },
-          {
-              "id": 9,
-              "name": "TailwindCSS",
-              "skill": true
-          }
       ]
   }
 )
@@ -57,11 +15,33 @@
 
 
 <template>
-  <div class="container mx-auto px-8">
+  <div class="container mx-auto px-4">
     
     <div class="text-gray-100 dark:text-gray-100">
 
-      index page
+      <p class="pb-4">table data:</p>
+
+
+        <div class="relative overflow-x-auto mt-8">
+          <table class="w-full text-left text-gray-500 dark:text-gray-400">
+              <thead class="text-gray-700 uppercase  dark:text-gray-400">
+                  <tr class="bg-gray-800 border border-gray-500 hover:bg-gray-600">
+                    <th v-for="key in [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC']" :key="key" scope="col" class="px-6 py-3 text-gray-200 text-xs">
+                      <p class="text-sm">{{ data[0][key] }}</p>
+                    </th>
+                  </tr>
+              </thead>
+              <tbody>
+
+                <tr v-for="item in data.slice(1)" :key="item.id" class=" dark:bg-gray-800 border border-gray-500 hover:bg-gray-600">
+                  <th v-for="value in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC']" :key="value" scope="row" class="px-6 py-4 text-gray-100 w-[400px] text-xs">
+                    <p class="text-xs">{{ item[value] }}</p>
+                  </th>
+                </tr>
+              </tbody>
+          </table>
+      </div>
+
 
     </div>
 
