@@ -41,40 +41,37 @@ def create_hero(hero: Hero, session: SessionDep) -> Hero:
     return hero
 
 
-# @router.get("/heroes/")
-# def read_heroes(
-#     session: SessionDep,
-#     offset: int = 0,
-#     limit: Annotated[int, Query(le=100)] = 100,
-# ) -> list[Hero]:
-#     heroes = session.exec(select(Hero))
-
-#     return heroes
-
-
 from collections import OrderedDict
+def normalize_keys(model_keys, data) -> list[dict]:
+    """ Нормализация ключей в ответе API """
+    fields = [field for field in model_keys]
+    result = []
+
+    for row in data:
+        row_dict = OrderedDict((field, getattr(row, field)) for field in fields)
+        result.append(row_dict)
+
+    return result
+
+
 @router.get("/heroes/", response_model=list[Hero])
 def read_heroes(
     session: SessionDep,
     offset: int = 0,
-    limit: Annotated[int, Query(le=100)] = 100,
-):
-    heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
-    fields = [field for field in Hero.model_fields.keys()]
-    print(fields)
-    result = []
-    for hero in heroes:
-        hero_dict = OrderedDict((field, getattr(hero, field)) for field in fields)
-        result.append(hero_dict)
-    return result
+    # limit: Annotated[int, Query(le=100)] = 100,
+    ) -> list[Hero]:
+
+    # heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
+    data = session.exec(select(Hero).offset(offset)).all()
+    return normalize_keys(Hero.model_fields.keys(), data)
 
 
 @router.get("/heroes/{hero_id}")
 def read_hero(hero_id: int, session: SessionDep) -> Hero:
-    hero = session.get(Hero, hero_id)
-    if not hero:
+    data = session.get(Hero, hero_id)
+    if not data:
         raise HTTPException(status_code=404, detail="Hero not found")
-    return hero
+    return normalize_keys(Hero.model_fields.keys(), [data])[0]
 
 
 @router.delete("/heroes/{hero_id}")
