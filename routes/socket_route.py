@@ -53,3 +53,12 @@ async def websocket_endpoint(websocket: WebSocket):
     while True:
         data = await websocket.receive_text()
         await websocket.send_text(f"Message text was: {data}")
+
+
+from datetime import datetime
+@router.websocket("/time")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        await websocket.send_text(f"Current time: {now}")
