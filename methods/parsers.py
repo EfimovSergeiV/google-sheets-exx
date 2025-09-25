@@ -73,5 +73,3 @@ def import_data_from_file():
                     CJ=data[87], CK=data[88], CL=data[89], CM=data[90], 
                     CN=data[91], CO=data[92], CP=data[93])
                 create_hero(hero, session=session)
-
-            sleep(0.2)

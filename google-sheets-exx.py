@@ -20,12 +20,12 @@ workbook = client.open_by_key(sheet_id)
 # get_cols_name(workbook)
 # get_list_rows(workbook, [1,3])
 
+
+
 # Скачиваем все данные, для работы локально
 # all_data = get_all_rows(workbook)
 # with open("all_data.txt", "w", encoding="utf-8") as f:
 #     f.write(all_data.__str__())
-
-
 
 import_data_from_file()
 

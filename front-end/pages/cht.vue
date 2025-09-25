@@ -19,10 +19,8 @@
     
     <div class="text-gray-100 dark:text-gray-100">
 
-      <p class="pb-4">table data:</p>
 
-
-        <div class="relative overflow-y-auto h-[600px] overflow-x-auto">
+        <div v-if="data.length > 0" class="relative overflow-y-auto h-[600px] overflow-x-auto">
           <table class="w-full text-left text-gray-500 dark:text-gray-400">
               <thead class="text-gray-700 uppercase dark:text-gray-400 sticky top-0">
                   <tr class="bg-gray-800 border border-gray-500 hover:bg-gray-600">
@@ -40,6 +38,10 @@
                 </tr>
               </tbody>
           </table>
+      </div>
+
+      <div v-else class="flex items-center justify-center">
+        <p class="">Нет данных</p>
       </div>
 
 

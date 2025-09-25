@@ -42,11 +42,36 @@ app.add_middleware(
 )
 
 
+###################################################
+# Загрузка, сохранение данных в БД из Google Sheets
+import gspread
+from google.oauth2.service_account import Credentials
+
+from methods.parsers import *
+from methods.sheets import *
+from conf import sheet_id
+
+scopes = ["https://www.googleapis.com/auth/spreadsheets"]
+creds = Credentials.from_service_account_file("credentials.json", scopes=scopes)
+client = gspread.authorize(creds)
+workbook = client.open_by_key(sheet_id)
+
+@app.get("/load_sheets/")
+def load_sheets():
+    print("load_sheets called")
+    all_data = get_all_rows(workbook)
+    with open("all_data.txt", "w", encoding="utf-8") as f:
+        f.write(all_data.__str__())
+    return {"status": "Data loaded successfully"}
 
 
+@app.get("/write_sheets/")
+def write_sheets():
+    print("write_sheets called")
+    import_data_from_file()
+    return {"status": "Data written successfully"}
 
-
-
+###################################################
 
 
 
