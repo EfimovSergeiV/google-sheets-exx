@@ -41,14 +41,32 @@ def create_hero(hero: Hero, session: SessionDep) -> Hero:
     return hero
 
 
-@router.get("/heroes/")
+# @router.get("/heroes/")
+# def read_heroes(
+#     session: SessionDep,
+#     offset: int = 0,
+#     limit: Annotated[int, Query(le=100)] = 100,
+# ) -> list[Hero]:
+#     heroes = session.exec(select(Hero))
+
+#     return heroes
+
+
+from collections import OrderedDict
+@router.get("/heroes/", response_model=list[Hero])
 def read_heroes(
     session: SessionDep,
     offset: int = 0,
     limit: Annotated[int, Query(le=100)] = 100,
-) -> list[Hero]:
-    heroes = session.exec(select(Hero).order_by(Hero.id.asc()).offset(offset).limit(limit)).all()
-    return heroes
+):
+    heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
+    fields = [field for field in Hero.model_fields.keys()]
+    print(fields)
+    result = []
+    for hero in heroes:
+        hero_dict = OrderedDict((field, getattr(hero, field)) for field in fields)
+        result.append(hero_dict)
+    return result
 
 
 @router.get("/heroes/{hero_id}")
