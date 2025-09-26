@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, SQLModel, select, create_engine
 
 from models import Hero
-from routes import socket_route, hero_route
+from routes import sheets_route, socket_route
 
 
 # Подключение/создание базы данных
@@ -42,6 +42,18 @@ app.add_middleware(
 )
 
 
+# Include routers
+app.include_router(socket_route.router)
+app.include_router(sheets_route.router)
+
+
+# Protected Routers
+# app.include_router(
+#     admin_route.router,
+#     dependencies=[Depends(get_current_user)]
+# )
+
+
 ###################################################
 # Загрузка, сохранение данных в БД из Google Sheets
 import gspread
@@ -75,17 +87,7 @@ def write_sheets():
 
 
 
-# Include routers
-app.include_router(socket_route.router)
-app.include_router(hero_route.router)
-
-
-# Protected Routers
-# app.include_router(
-#     admin_route.router,
-#     dependencies=[Depends(get_current_user)]
-# )
-
+# EXAMPLES
 
 # @app.post("/heroes/")
 # def create_hero(hero: Hero, session: SessionDep) -> Hero:

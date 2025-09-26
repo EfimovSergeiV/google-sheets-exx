@@ -63,6 +63,5 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     while True:
         await websocket.send_text(datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
-        print('send time')
         await asyncio.sleep(1)
 

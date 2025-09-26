@@ -101,3 +101,36 @@ class Hero(SQLModel, table=True):
     CN: str | None = None
     CO: str | None = None
     CP: str | None = None
+
+
+class MachineAbstract(SQLModel):
+    id: int | None = Field(default=None, primary_key=True)
+    # Разметка строки google sheets от A, до CP (48 колонок)
+    A: str | None = None
+    B: str | None = None
+    C: str | None = None
+    D: str | None = None
+    E: str | None = None
+    F: str | None = None
+    G: str | None = None
+    H: str | None = None
+    I: str | None = None
+    J: str | None = None
+    K: str | None = None
+    L: str | None = None
+
+
+class M1(MachineAbstract, table=True):
+    pass
+
+class M2(MachineAbstract, table=True):
+    pass
+
+class M3(MachineAbstract, table=True):
+    pass
+
+class M4(MachineAbstract, table=True):
+    pass
+
+class M5(MachineAbstract, table=True):
+    pass
