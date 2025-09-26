@@ -54,6 +54,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       baseURL: process.env.BASE_URL || cfg.BASE_URL,
+      wsURL: process.env.BASE_URL || cfg.WS_URL,
     },
   },
 })

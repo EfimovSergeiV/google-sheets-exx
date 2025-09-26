@@ -56,9 +56,13 @@ async def websocket_endpoint(websocket: WebSocket):
 
 
 from datetime import datetime
+from time import sleep
+import asyncio
 @router.websocket("/time")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     while True:
-        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        await websocket.send_text(f"Current time: {now}")
+        await websocket.send_text(datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
+        print('send time')
+        await asyncio.sleep(1)
+

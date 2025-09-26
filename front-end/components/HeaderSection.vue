@@ -1,17 +1,10 @@
 <script setup>
   const route = useRoute()
+  const config = useRuntimeConfig()
 
-  // const config = useRuntimeConfig()
-  // const data = await $fetch(`${ config.public.baseURL }heroes/`
-
-  const wsUrl = "ws://127.0.0.1:8000/time";
-  // const wsUrl = "wss://api.meinewelt.ru/chat";
-
-  const messages = ref([]); // массив сообщений [{text, time}]
-  const message = ref("");
+  const wsUrl = `${ config.public.baseURL }time`;
+  const nowDateTime = ref("00.00.0000 00:00:00")
   let socket = null;
-
-  const connectionID = ref(null);
 
   const connectWebSocket = () => {
     socket = new WebSocket(wsUrl);
@@ -21,29 +14,8 @@
     };
 
     socket.onmessage = (event) => {
-
       try {
-        const data = JSON.parse(event.data)
-
-        // Проверяем, есть ли connection_id
-        if (data.connection_id) {
-          connectionID.value = data.connection_id;
-        } else {
-          if (Array.isArray(data)) {
-            messages.value = data;
-          } else {
-            messages.value.push(data);
-
-            // Ограничиваем количество сообщений до 6 последних
-            if (messages.value.length > 5) {
-              messages.value.shift();
-            }
-          }        
-        }
-
-        /// Если массив объектов, тогда message = data, иначе message.push(data)
-
-
+        nowDateTime.value = event.data
       } catch (e) {
         console.error("Ошибка парсинга:", e);
       }
@@ -53,13 +25,6 @@
       console.log("WebSocket закрыт, переподключение...");
       setTimeout(connectWebSocket, 1000);
     };
-  };
-
-  const sendMessage = () => {
-    if (socket && socket.readyState === WebSocket.OPEN && message.value.trim()) {
-      socket.send(message.value);
-      message.value = "";
-    }
   };
 
   onMounted(() => connectWebSocket());
@@ -73,10 +38,11 @@
   <div class="container mx-auto px-4">
     <div class="flex flex-row items-center w-full justify-between py-4 text-gray-100 dark:text-gray-100">
       
-      <div class="">
+      <div class="flex gap-4">
         <nuxt-link :to="{ name: 'index' }">
-          <p>BETA</p>       
+          <p class="font-semibold">BETA</p>
         </nuxt-link>
+        <p>{{ nowDateTime }}</p>
       </div>
 
       <div class="flex flex-row items-center gap-2 md:gap-4 ">
