@@ -50,11 +50,11 @@ export default defineNuxtConfig({
     // you don't need to include this: only for testing purposes
     buildDate: new Date().toISOString(),
   },
-  
+
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL || cfg.BASE_URL,
-      wsURL: process.env.BASE_URL || cfg.WS_URL,
+      baseURL: cfg.BASE_URL,
+      wsURL: cfg.WS_URL,
     },
   },
 })
