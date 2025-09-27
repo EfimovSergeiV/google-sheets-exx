@@ -1,8 +1,8 @@
 <script setup>
-  // If you want to use it in setup, import from the nuxtApp.
-  const { $pwa } = useNuxtApp()
   const route = useRoute()
-  const date = useAppConfig().buildDate
+
+  // const date = useAppConfig().buildDate
+  //  const { $pwa } = useNuxtApp() 
   // const toast = useToast()
 
 
@@ -23,13 +23,13 @@
           </div>
           <p class="font-semibold italic uppercase text-sm md:text-2xl">/</p>
           <div class="">
-            <nuxt-link v-if="route.name === 'cht'" :to="{ name: 'cht' }" class="text-red-700 font-semibold italic uppercase text-xs md:text-lg">CHT</nuxt-link>
-            <nuxt-link v-else :to="{ name: 'cht' }" class="font-semibold italic uppercase text-xs md:text-lg">CHT</nuxt-link>
+            <nuxt-link v-if="route.name === 'sht'" :to="{ name: 'sht' }" class="text-red-700 font-semibold italic uppercase text-xs md:text-lg">CHT</nuxt-link>
+            <nuxt-link v-else :to="{ name: 'sht' }" class="font-semibold italic uppercase text-xs md:text-lg">SHT</nuxt-link>
           </div>
           <p class="font-semibold italic uppercase text-sm md:text-2xl">/</p>
           <div class="">
-            <nuxt-link v-if="route.name === 'exx'" :to="{ name: 'exx' }" class="text-red-700 font-semibold italic uppercase text-xs md:text-lg">EXX</nuxt-link>
-            <nuxt-link v-else :to="{ name: 'exx' }" class="font-semibold italic uppercase text-xs md:text-lg">EXX</nuxt-link>
+            <nuxt-link v-if="route.name === 'm1-5'" :to="{ name: 'm1-5' }" class="text-red-700 font-semibold italic uppercase text-xs md:text-lg">EXX</nuxt-link>
+            <nuxt-link v-else :to="{ name: 'm1-5' }" class="font-semibold italic uppercase text-xs md:text-lg">M1-5</nuxt-link>
           </div>
           <p class="font-semibold italic uppercase text-sm md:text-2xl">/</p>
           <div class="">
