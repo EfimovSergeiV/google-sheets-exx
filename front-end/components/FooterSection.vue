@@ -28,7 +28,7 @@
           </div>
           <p class="font-semibold italic uppercase text-sm md:text-2xl">/</p>
           <div class="">
-            <nuxt-link v-if="route.name === 'm1-5'" :to="{ name: 'm1-5' }" class="text-red-700 font-semibold italic uppercase text-xs md:text-lg">EXX</nuxt-link>
+            <nuxt-link v-if="route.name === 'm1-5'" :to="{ name: 'm1-5' }" class="text-red-700 font-semibold italic uppercase text-xs md:text-lg">M1-5</nuxt-link>
             <nuxt-link v-else :to="{ name: 'm1-5' }" class="font-semibold italic uppercase text-xs md:text-lg">M1-5</nuxt-link>
           </div>
           <p class="font-semibold italic uppercase text-sm md:text-2xl">/</p>

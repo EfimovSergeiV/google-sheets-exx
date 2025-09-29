@@ -2,7 +2,7 @@
 from time import sleep
 from typing import Annotated
 from sqlmodel import Session
-from models import Hero
+from models import Hero, M1, M2, M3, M4, M5, MachineAbstract
 from fastapi import Depends
 from sqlmodel import Session, create_engine
 
@@ -21,12 +21,27 @@ def get_session():
 SessionDep = Annotated[Session, Depends(get_session)]
 
 
+
+
 def create_hero(hero: Hero, session: SessionDep) -> Hero:
-    """ Создание записи в базе """
+    """ Создание записи в базе HERO """
     session.add(hero)
     session.commit()
     session.refresh(hero)
     return hero
+
+
+def create_mashine(data: dict, session: SessionDep):
+    """ Создание записи в базе M1-M5 """
+    models = [M1, M2, M3, M4, M5]
+    for model in models:
+        obj = model(**data)
+        session.add(obj)
+    session.commit()
+    return {"ok": True}
+
+
+
 
 def export_data_to_file(workbook):
     """ Экспорт данных из гугл таблицы в файл """

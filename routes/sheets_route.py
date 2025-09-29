@@ -1,8 +1,11 @@
 from typing import Annotated
 from fastapi import HTTPException
 from sqlmodel import Session, select, create_engine
-from models import Hero
+from models import Hero, M1, M2, M3, M4, M5, MachineAbstract 
 from fastapi import APIRouter, Query, Depends
+from fastapi.responses import HTMLResponse
+
+
 
 # Подключение/создание базы данных (Дубль)
 sqlite_file_name = "database.db"
@@ -85,3 +88,25 @@ def delete_hero(hero_id: int, session: SessionDep):
 
 
 
+
+from methods.parsers import create_mashine
+@router.get("/init-m/")
+async def get(session: SessionDep):
+
+    data = {
+        "id": 1,
+        "A": "Название машины",
+        "B": "Номер заказа",
+        "C": "Чертёж",
+        "D": "Наименование",
+        "E": "Количество",
+        "F": "Дата начала (план)",
+        "G": "Дата окончания (план)",
+        "H": "Дата начала (факт)",
+        "I": "Дата окончания (факт)",
+        "J": "Следующая операция",
+        "K": "Трудоёмкость",
+        "L": "Необх. дата сдачи на сборку"
+    }
+    create_mashine(data, session=session)
+    return HTMLResponse("hallo welt")
