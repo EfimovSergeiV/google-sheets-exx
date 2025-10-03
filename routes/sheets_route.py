@@ -109,4 +109,26 @@ async def get(session: SessionDep):
         "L": "Необх. дата сдачи на сборку"
     }
     create_mashine(data, session=session)
-    return HTMLResponse("hallo welt")
+    return HTMLResponse("Записали, если ошибка, значит уже записано")
+
+
+@router.get("/m/{id}")
+def read_m1(id: int, session: SessionDep) -> MachineAbstract:
+    """ one id M"""
+    data = session.get(M1, id)
+    if not data:
+        raise HTTPException(status_code=404, detail="M1 not found")
+    return normalize_keys(MachineAbstract.model_fields.keys(), [data])[0]
+
+
+@router.get("/m/all/")
+def read_all_m(session: SessionDep, offset: int = 0,) -> list[MachineAbstract]:
+    """ all id M"""
+
+    # data = []
+
+    # for 
+    data = session.exec(select(M1).offset(offset)).all()
+    if not data:
+        raise HTTPException(status_code=404, detail="M1 not found")
+    return normalize_keys(MachineAbstract.model_fields.keys(), data)
