@@ -123,12 +123,18 @@ def read_m1(id: int, session: SessionDep) -> MachineAbstract:
 
 @router.get("/m/all/")
 def read_all_m(session: SessionDep, offset: int = 0,) -> list[MachineAbstract]:
-    """ all id M"""
+    """ 
+    all id M
+    
+    AttributeError: 'list' object has no attribute 'id'
+    """
 
-    # data = []
+    all_data = []
 
-    # for 
-    data = session.exec(select(M1).offset(offset)).all()
-    if not data:
-        raise HTTPException(status_code=404, detail="M1 not found")
-    return normalize_keys(MachineAbstract.model_fields.keys(), data)
+    for M in [M1, M2, M3, M4, M5]:
+        data = session.exec(select(M).offset(offset)).all()
+        all_data.append(data)
+    
+    if not all_data:
+            raise HTTPException(status_code=404, detail="M1 not found")
+    return normalize_keys(MachineAbstract.model_fields.keys(), all_data)
