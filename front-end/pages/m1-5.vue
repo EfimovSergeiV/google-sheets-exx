@@ -2,7 +2,7 @@
   const config = useRuntimeConfig()
 
 
-  const m1 = await $fetch(`${ config.public.baseURL }m/1`, { method: 'GET' }).catch( () => {
+  const mms = await $fetch(`${ config.public.baseURL }m/all/`, { method: 'GET' }).catch( () => {
     return [
           {
               "err": "Нет данных",
@@ -21,9 +21,17 @@
         <p class="text-white text-xl">M1-5</p>
       </div>
 
-      <div class="">
-        <p>{{ m1 }}</p>
+      
+      <div class="grid grid-cols-5 gap-4">
+        <div v-for="mm in Object.keys(mms)" :key="mm" class="">
+          
+          <div v-for="(data, pk) in mms[mm]" :key="data" class="">
+            <div class="w-64 text-xs"><p>{{ pk }}. {{ data }}</p></div>
+          </div>
+          
+        </div>        
       </div>
+
 
     </div>
 
