@@ -13,7 +13,7 @@
   <div class="bg-fixed bg-no-repeat bg-cover bg-center min-h-screen bg-gray-700">
 
     <div class="">
-      <div class="h-screen overflow-hidden flex flex-col justify-between">
+      <div class="min-h-screen flex flex-col justify-between">
         <HeaderSection />
         <slot />
         <FooterSection />

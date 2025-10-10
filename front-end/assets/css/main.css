@@ -10,13 +10,13 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #f8dc08;
+  background-color: #1447e6;
   border-radius: 6px;
-  box-shadow: inset 1px 1px 10px #f8dc08;
+  box-shadow: inset 1px 1px 10px #1447e6;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #f8dc08;
+  background-color: #1447e6;
 }
 
 ::selection {

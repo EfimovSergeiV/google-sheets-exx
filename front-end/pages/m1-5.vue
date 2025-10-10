@@ -35,7 +35,7 @@
               <thead class="text-gray-700 uppercase dark:text-gray-400 sticky top-0">
                   <tr class="bg-gray-800 border border-gray-500 hover:bg-gray-600">
                     <th v-for="key in Object.keys(sourceTable[0])" :key="key" scope="col" class="px-6 py-3 text-gray-200 text-xs">
-                      <p class="text-sm">{{ sourceTable[0][key] }}</p>
+                      <p class="text-sm">({{ key }}) {{ sourceTable[0][key] }}</p>
                     </th>
                   </tr>
               </thead>
@@ -69,8 +69,6 @@
               <div class="w-64 text-xs"><p>{{ pk }}. {{ data }}</p></div>
             </div>            
           </div>
-
-          
         </div>        
       </div>
 
