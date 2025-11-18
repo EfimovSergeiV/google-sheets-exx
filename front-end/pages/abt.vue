@@ -1,8 +1,6 @@
 <script setup>
   const ctx = useNuxtApp()
 
-
-
   const firstButton = () => {
     if (import.meta.client) {
       ctx.$metrika.reachGoal('FIRST_BUTTON')

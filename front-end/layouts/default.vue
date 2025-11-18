@@ -15,7 +15,9 @@
     <div class="">
       <div class="min-h-screen flex flex-col justify-between">
         <HeaderSection />
-        <slot />
+        <div class="flex-1">
+          <slot />
+        </div>
         <FooterSection />
       </div>
     </div>
