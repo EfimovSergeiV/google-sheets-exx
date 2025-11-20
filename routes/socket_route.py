@@ -1,3 +1,10 @@
+""" 
+Роуты для работы с WebSocket 
+
+PS: пока просто, что бы было
+
+"""
+
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 from fastapi import WebSocket

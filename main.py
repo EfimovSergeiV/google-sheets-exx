@@ -8,16 +8,23 @@ from models import Hero
 from routes import sheets_route, socket_route
 
 
+from modules.database import create_db_and_tables, get_session, SessionDep
+
 # Подключение/создание базы данных
-sqlite_file_name = "database.db"
-sqlite_url = f"sqlite:///{ sqlite_file_name }"
+# sqlite_file_name = "database.db"
+# sqlite_url = f"sqlite:///{ sqlite_file_name }"
 
-connect_args = {"check_same_thread": False}
-engine = create_engine(sqlite_url, connect_args=connect_args)
+# connect_args = {"check_same_thread": False}
+# engine = create_engine(sqlite_url, connect_args=connect_args)
 
-def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
+# def create_db_and_tables():
+#     SQLModel.metadata.create_all(engine)
 
+
+# def get_session():
+#     with Session(engine) as session:
+#         yield session
+# SessionDep = Annotated[Session, Depends(get_session)]
 
 
 
@@ -59,8 +66,8 @@ app.include_router(sheets_route.router)
 import gspread
 from google.oauth2.service_account import Credentials
 
-from methods.parsers import *
-from methods.sheets import *
+from modules.parsers import *
+from modules.sheets import *
 from conf import sheet_id
 
 scopes = ["https://www.googleapis.com/auth/spreadsheets"]

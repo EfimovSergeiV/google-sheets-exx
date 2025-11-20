@@ -5,35 +5,21 @@ from models import Hero, M1, M2, M3, M4, M5, MachineAbstract
 from fastapi import APIRouter, Query, Depends
 from fastapi.responses import HTMLResponse
 
-
-
-# Подключение/создание базы данных (Дубль)
-sqlite_file_name = "database.db"
-sqlite_url = f"sqlite:///{ sqlite_file_name }"
-
-connect_args = {"check_same_thread": False}
-
-engine = create_engine(sqlite_url, connect_args=connect_args)
-def get_session():
-    with Session(engine) as session:
-        yield session
-
-
-
-
-def get_session():
-    with Session(engine) as session:
-        yield session
-
-
+from modules.database import create_db_and_tables, get_session, SessionDep
+# Подключение/создание базы данных
+# 
+# sqlite_file_name = "database.db"
+# sqlite_url = f"sqlite:///{ sqlite_file_name }"
+# connect_args = {"check_same_thread": False}
+# engine = create_engine(sqlite_url, connect_args=connect_args)
+# def get_session():
+#     with Session(engine) as session:
+#         yield session
 
 router = APIRouter()
-def get_session():
-    with Session(engine) as session:
-        yield session
+# SessionDep = Annotated[Session, Depends(get_session)]
 
 
-SessionDep = Annotated[Session, Depends(get_session)]
 
 
 @router.post("/heroes/")
@@ -89,7 +75,8 @@ def delete_hero(hero_id: int, session: SessionDep):
 
 
 
-from methods.parsers import create_mashine
+from modules.parsers import create_mashine
+
 @router.get("/init-m/")
 async def get(session: SessionDep):
 

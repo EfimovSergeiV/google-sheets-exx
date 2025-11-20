@@ -6,20 +6,8 @@ from models import Hero, M1, M2, M3, M4, M5, MachineAbstract
 from fastapi import Depends
 from sqlmodel import Session, create_engine
 
-from methods.sheets import *
-
-
-# Подключение/создание базы данных (Дубль X2)
-sqlite_file_name = "database.db"
-sqlite_url = f"sqlite:///{ sqlite_file_name }"
-connect_args = {"check_same_thread": False}
-engine = create_engine(sqlite_url, connect_args=connect_args)
-def get_session():
-    with Session(engine) as session:
-        yield session
-
-SessionDep = Annotated[Session, Depends(get_session)]
-
+from .sheets import *
+from modules.database import create_db_and_tables, get_session, SessionDep, engine
 
 
 
@@ -41,8 +29,6 @@ def create_mashine(data: dict, session: SessionDep):
     return {"ok": True}
 
 
-
-
 def export_data_to_file(workbook):
     """ Экспорт данных из гугл таблицы в файл """
     all_data = get_all_rows(workbook)
@@ -60,7 +46,7 @@ def import_data_from_file():
         for data in all_data:
             count += 1
             print(f"\nROW { count } : lenght = { len(data) } : { data }\n\t-----")
-            # Записываем в базу
+            # Проверяем, что есть какие то данные и записываем в базу
             if len(data[0]) > 0 and len(data[1]) > 0:
                 hero = Hero(
                     id=count, A=data[0], B=data[1], C=data[2], 

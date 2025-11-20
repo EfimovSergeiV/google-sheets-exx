@@ -1,8 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
-from methods.parsers import *
-from methods.sheets import *
+from modules.parsers import *
+from modules.sheets import *
 from conf import sheet_id
 
 
