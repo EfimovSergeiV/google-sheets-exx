@@ -4,21 +4,10 @@ from sqlmodel import Session, select, create_engine
 from models import Hero, M1, M2, M3, M4, M5, MachineAbstract 
 from fastapi import APIRouter, Query, Depends
 from fastapi.responses import HTMLResponse
-
 from modules.database import create_db_and_tables, get_session, SessionDep
-# Подключение/создание базы данных
-# 
-# sqlite_file_name = "database.db"
-# sqlite_url = f"sqlite:///{ sqlite_file_name }"
-# connect_args = {"check_same_thread": False}
-# engine = create_engine(sqlite_url, connect_args=connect_args)
-# def get_session():
-#     with Session(engine) as session:
-#         yield session
+
 
 router = APIRouter()
-# SessionDep = Annotated[Session, Depends(get_session)]
-
 
 
 
@@ -47,10 +36,10 @@ def normalize_keys(model_keys, data) -> list[dict]:
 def read_heroes(
     session: SessionDep,
     offset: int = 0,
-    # limit: Annotated[int, Query(le=100)] = 100,
+    # limit: Annotated[int, Query(le=100)] = 100, # Задать лимит на запрос к БД
     ) -> list[Hero]:
 
-    # heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
+    # heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()  # Применить лимит на запрос к БД
     data = session.exec(select(Hero).offset(offset)).all()
     return normalize_keys(Hero.model_fields.keys(), data)
 
@@ -70,8 +59,7 @@ def delete_hero(hero_id: int, session: SessionDep):
         raise HTTPException(status_code=404, detail="Hero not found")
     session.delete(hero)
     session.commit()
-    return {"ok": True}
-
+    return { "ok": True }
 
 
 
@@ -111,8 +99,8 @@ def read_m1(id: int, session: SessionDep) -> MachineAbstract:
 @router.get("/m/all/")
 def read_all_m(session: SessionDep, offset: int = 0):
     """ all id M """
-    custom_json = {"M1": [], "M2": [], "M3": [], "M4": [], "M5": []}
-    for model in [M1, M2, M3, M4, M5]:
+    custom_json = { "M1": [], "M2": [], "M3": [], "M4": [], "M5": [] }
+    for model in [ M1, M2, M3, M4, M5 ]:
         data = session.exec(select(model).offset(offset)).all()
         custom_json[model.__name__] = normalize_keys(MachineAbstract.model_fields.keys(), data)
 

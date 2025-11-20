@@ -12,7 +12,10 @@ from modules.database import create_db_and_tables, get_session, SessionDep, engi
 
 
 def create_hero(hero: Hero, session: SessionDep) -> Hero:
-    """ Создание записи в базе HERO """
+    """ 
+        Создание записи в базе HERO\n 
+        FIXME: Тут нужно переименовать модель вместе с табл. на 'планировщик'
+    """
     session.add(hero)
     session.commit()
     session.refresh(hero)
@@ -20,17 +23,20 @@ def create_hero(hero: Hero, session: SessionDep) -> Hero:
 
 
 def create_mashine(data: dict, session: SessionDep):
-    """ Создание записи в базе M1-M5 """
+    """ 
+        Создание записи в базе M1-M5\n
+        Нет, вроде создаёт только таблицы в базе M1-M5
+    """
     models = [M1, M2, M3, M4, M5]
     for model in models:
         obj = model(**data)
         session.add(obj)
     session.commit()
-    return {"ok": True}
+    return { "ok": True }
 
 
 def export_data_to_file(workbook):
-    """ Экспорт данных из гугл таблицы в файл """
+    """ Импорт данных из гугл таблицы в файл """
     all_data = get_all_rows(workbook)
     with open("all_data.txt", "w", encoding="utf-8") as f:
         f.write(all_data.__str__())
